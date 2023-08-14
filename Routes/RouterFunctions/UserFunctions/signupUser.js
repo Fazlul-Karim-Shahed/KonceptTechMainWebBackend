@@ -17,8 +17,8 @@ const signupUser = async (req, res) => {
 
         let data = await newUser.save()
 
-        let token = await jwt.sign(_.pick(data, ['name', 'mobile', 'email', 'role']), process.env.SECRET_KEY, { expiresIn: '1h' })
-        res.send({ error: false, data: { token: token }, message: 'User registration successful' })
+        let token = await jwt.sign(_.pick(data, ['name', 'mobile', 'email', 'role', '_id']), process.env.SECRET_KEY, { expiresIn: '1h' })
+        res.send({ error: false, data: token , message: 'User registration successful' })
 
     }
     else {

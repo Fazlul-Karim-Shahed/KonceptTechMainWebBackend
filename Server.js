@@ -1,10 +1,11 @@
-// require('express-async-errors')
+require('express-async-errors')
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const compression = require('compression')
 const UserRouter = require('./Routes/UserRouter')
+const CourseRouter = require('./Routes/CourseRouter')
 
 // ------------ Configuration ------------  //
 
@@ -30,6 +31,7 @@ mongoose.connect(DB)
 
 // ------------ All Routers ------------ //
 app.use('/user', UserRouter)
+app.use('/course', CourseRouter)
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to Koncept Tech</h1>')
 })

@@ -16,13 +16,14 @@ const signinUser = async (req, res) => {
         let passCheck = await bcrypt.compare(req.body.password, user.password)
         if (passCheck) {
 
-            let token = jwt.sign(_.pick(user, ['name', 'mobile', 'email', 'role']), process.env.SECRET_KEY, { expiresIn: '1h' })
+            let token = jwt.sign(_.pick(user, ['_id', 'name', 'mobile', 'email', 'role']), process.env.SECRET_KEY, { expiresIn: '1h' })
 
-            res.send({ error: false, data: { token: token }, message: 'Login successful' })
+            res.send({ error: false, data: token , message: 'Login successful' })
 
         }
         else {
             res.send({ error: true, message: 'Password not matched' })
+
         }
 
 
