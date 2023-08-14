@@ -1,4 +1,4 @@
-require('express-async-errors')
+// require('express-async-errors')
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
@@ -6,7 +6,7 @@ const cors = require('cors')
 const compression = require('compression')
 const UserRouter = require('./Routes/UserRouter')
 
-/////////////////
+// ------------ Configuration ------------  //
 
 dotenv.config()
 const app = express()
@@ -17,7 +17,7 @@ app.use(compression())
 
 
 
-// Online DB
+// ------------ Database ------------  //
 const DB = process.env.MONGODB_DATABASE.replace('<password>', process.env.MONGODB_PASS)
 mongoose.connect(DB)
     .then(data => console.log('Successfully connected to MongoDB Server'))
@@ -39,7 +39,7 @@ app.use((err, req, res, next) => {
     res.status(500).send({ message: 'Something went wrong', error: true })
 })
 
-///////////////////////////////
+// ------------ Server ------------ //
 const port = process.env.PORT
 app.listen(port, () => {
     console.log('Server is running on port ' + port);
