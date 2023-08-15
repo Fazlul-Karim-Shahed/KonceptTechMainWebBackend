@@ -1,12 +1,13 @@
+
 const { Course } = require("../../../Models/CourseMode")
 const _ = require('lodash')
 
 
 
-const createCourse = async (req, res) => {
+const updateCourse = async (req, res) => {
 
     let nameCheck = await Course.findOne({ courseName: req.body.courseName })
-    
+
     if (nameCheck === null) {
 
         let newCourse = new Course(_.pick(req.body, ['courseName', 'description', 'courseFee', 'duration', 'enrolledNumber', 'posterURL']))
@@ -23,4 +24,4 @@ const createCourse = async (req, res) => {
 
 }
 
-module.exports = createCourse
+module.exports = updateCourse

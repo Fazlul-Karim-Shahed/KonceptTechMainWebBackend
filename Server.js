@@ -20,7 +20,11 @@ app.use(compression())
 
 // ------------ Database ------------  //
 const DB = process.env.MONGODB_DATABASE.replace('<password>', process.env.MONGODB_PASS)
-mongoose.connect(DB)
+mongoose.set('strictQuery', false)
+mongoose.connect(DB, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then(data => console.log('Successfully connected to MongoDB Server'))
     .catch(data => {
         console.log('Something went wrong with MongoDB Server')
