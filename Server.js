@@ -4,8 +4,11 @@ const dotenv = require('dotenv')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const compression = require('compression')
+const _ = require('lodash')
 const UserRouter = require('./Routes/UserRouter')
 const CourseRouter = require('./Routes/CourseRouter')
+const ServiceRouter = require('./Routes/ServiceRouter')
+const DescriptiveSectionRouter = require('./Routes/DescriptiveSectionRouter')
 
 // ------------ Configuration ------------  //
 
@@ -36,13 +39,17 @@ mongoose.connect(DB, {
 // ------------ All Routers ------------ //
 app.use('/user', UserRouter)
 app.use('/course', CourseRouter)
+app.use('/service', ServiceRouter)
+app.use('/descriptive-section', DescriptiveSectionRouter)
+
 app.get('/', (req, res) => {
     res.send('<h1>Welcome to Koncept Tech</h1>')
 })
 
 
 app.use((err, req, res, next) => {
-    res.status(500).send({ message: 'Something went wrong', error: true })
+    // console.log(err)
+    res.status(500).send({ message: 'Something went wrong', error: true, data: _.pick(err, ['messageFormat', 'kind', 'value', 'path', 'valueType']) })
 })
 
 // ------------ Server ------------ //

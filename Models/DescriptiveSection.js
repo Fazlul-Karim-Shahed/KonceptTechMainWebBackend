@@ -1,33 +1,24 @@
-
 const { model, Schema } = require('mongoose')
 
-const Course = model('Course', Schema({
 
-    courseName: {
+const DescriptiveSection = model('DescriptiveSection', Schema({
+
+    title: {
         type: String,
-        required: true
+        required: true,
     },
-
-    posterURL: {
+    subTitle: {
         type: String,
-        required: true
     },
-
     description: {
         type: String,
-        required: true
+        required: true,
     },
-
-    courseFee: {
-        type: String,
-        required: true
-    },
-
-    duration: {
+    externalLink: {
         type: String,
     },
-    enrolledNumber: {
-        type: Number,
+    posterURL: {
+        type: String,
     },
     createdBy: {
         type: Schema.Types.ObjectId,
@@ -40,7 +31,7 @@ const Course = model('Course', Schema({
     },
 
 
+}, { timestamps: true }))
 
-}, { timestamp: true }))
 
-module.exports.Course = Course
+module.exports.DescriptiveSection = DescriptiveSection

@@ -9,11 +9,20 @@ const createCourse = async (req, res) => {
     
     if (nameCheck === null) {
 
-        let newCourse = new Course(_.pick(req.body, ['courseName', 'description', 'courseFee', 'duration', 'enrolledNumber', 'posterURL']))
+        if (req.body.hasOwnProperty('courseName') && req.body.hasOwnProperty('description') && req.body.hasOwnProperty('createdBy') && req.body.hasOwnProperty('posterURL') && req.body.hasOwnProperty('courseFee')){
 
-        let course = await newCourse.save()
 
-        res.send({ error: false, data: course, message: 'Course created successfully' })
+            let newCourse = new Course(req.body)
+            let course = await newCourse.save()
+
+            res.send({ error: false, data: course, message: 'Course created successfully' })
+            
+        }
+        else{
+            res.send({ error: true, message: 'Missing required value' })
+        }
+
+        
 
     }
     else {

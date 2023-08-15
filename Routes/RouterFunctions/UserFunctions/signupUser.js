@@ -9,16 +9,22 @@ const signupUser = async (req, res) => {
 
     if (user === null || !user) {
 
-        let newUser = new Users(_.pick(req.body, ['name', 'email', 'password', 'mobile']))
-        let salt = await bcrypt.genSalt(10)
-        let hashedPass = await bcrypt.hash(newUser.password, salt)
+        if (req.body.hasOwnProperty('name') && req.body.hasOwnProperty('email') && req.body.hasOwnProperty('password') && req.body.hasOwnProperty('mobile')) {
 
-        newUser.password = hashedPass
+            let newUser = new Users(req.body)
+            let salt = await bcrypt.genSalt(10)
+            let hashedPass = await bcrypt.hash(newUser.password, salt)
 
-        let data = await newUser.save()
+            newUser.password = hashedPass
 
-        let token = await jwt.sign(_.pick(data, ['name', 'mobile', 'email', 'role', '_id']), process.env.SECRET_KEY, { expiresIn: '1h' })
-        res.send({ error: false, data: token , message: 'User registration successful' })
+            let data = await newUser.save()
+
+            let token = await jwt.sign(_.pick(data, ['name', 'mobile', 'email', 'role', '_id']), process.env.SECRET_KEY, { expiresIn: '1h' })
+            res.send({ error: false, data: token, message: 'User registration successful' })
+        }
+        else {
+            res.send({ error: true, message: 'Missing required value' })
+        }
 
     }
     else {
