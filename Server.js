@@ -8,6 +8,7 @@ const _ = require('lodash')
 const UserRouter = require('./Routes/UserRouter')
 const CourseRouter = require('./Routes/CourseRouter')
 const ServiceRouter = require('./Routes/ServiceRouter')
+const RegistrationRouter = require('./Routes/RegistrationRouter')
 const DescriptiveSectionRouter = require('./Routes/DescriptiveSectionRouter')
 
 // ------------ Configuration ------------  //
@@ -40,6 +41,7 @@ mongoose.connect(DB, {
 app.use('/user', UserRouter)
 app.use('/course', CourseRouter)
 app.use('/service', ServiceRouter)
+app.use('/registration', RegistrationRouter)
 app.use('/descriptive-section', DescriptiveSectionRouter)
 
 app.get('/', (req, res) => {
