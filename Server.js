@@ -10,6 +10,7 @@ const CourseRouter = require('./Routes/CourseRouter')
 const ServiceRouter = require('./Routes/ServiceRouter')
 const RegistrationRouter = require('./Routes/RegistrationRouter')
 const DescriptiveSectionRouter = require('./Routes/DescriptiveSectionRouter')
+const path = require('path')
 
 // ------------ Configuration ------------  //
 
@@ -43,14 +44,11 @@ app.use('/course', CourseRouter)
 app.use('/service', ServiceRouter)
 app.use('/registration', RegistrationRouter)
 app.use('/descriptive-section', DescriptiveSectionRouter)
-
-app.get('/', (req, res) => {
-    res.send('<h1>Welcome to Koncept Tech</h1>')
-})
+app.get('/', (req, res) => res.sendFile(path.resolve('./Server.html')))
 
 
 app.use((err, req, res, next) => {
-    // console.log(err)
+
     res.status(500).send({ message: 'Something went wrong', error: true, data: _.pick(err, ['messageFormat', 'kind', 'value', 'path', 'valueType']) })
 })
 
